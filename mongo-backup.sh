@@ -12,6 +12,7 @@ PORT=27017   			 # or see /etc/mongodb.conf -> param 'port'
 USERNAME=xxx
 PASSWORD=xxx
 DATABASE=xxx
+FILES_TO_KEEP=3
 
 #######################################
 
@@ -59,3 +60,7 @@ else
 		_do_backup $MONGO_DB
 	done
 fi
+
+# KEEP ONLY n BACKUPS:
+cd $BACKUP_DEST/$DATABASE
+ls -r1 | tail -n +$(($FILES_TO_KEEP+1)) | xargs rm
